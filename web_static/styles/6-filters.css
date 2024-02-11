@@ -8,6 +8,7 @@ section.filters{
     text-align: right;
     display: flex;
     justify-content: space-between;
+    border: 1px solid red;
 }
 
 #group {
