@@ -78,20 +78,43 @@ class HBNBCommand(cmd.Cmd):
         """Empty line should do nothing"""
         pass
 
-    def do_create(self, arg):
-        """Creates a new instance of a class based on the argument passed"""
-        _x = arg.split()
-        _r = [x.strip() for x in _x]
-        if not arg:
+    def do_create(self, args):
+        """ Create an object of any class
+        - Command syntax: "create" <Class name> <param 1> <param 2> <param 3>...
+        """
+        if not args:
             print("** class name missing **")
-        elif _r[0] not in HBNBCommand.cls_name:
+            return
+        args = args.split()
+        class_name = args[0]
+        if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
-        else:
+            return
 
-            if _r[0] in HBNBCommand.classes:
-                inst = HBNBCommand.classes[_r[0]]()
-                inst.save()
-                print(inst.id)
+        # Extracting parameters from args
+        params = {}
+        for arg in args[1:]:
+            if '=' in arg:
+                key, value = arg.split('=', 1)
+                # Handling string value
+                if value.startswith('"') and value.endswith('"'):
+                    value = value[1:-1].replace('_', ' ').replace('\\"', '"')
+                # Handling float value
+                elif '.' in value and all(part.isdigit() for part in value.split('.')):
+                    value = float(value)
+                # Handling integer value
+                elif value.isdigit():
+                    value = int(value)
+                # Skipping unrecognized values
+                else:
+                    continue
+                params[key] = value
+
+        # Creating instance with parameters
+        new_instance = HBNBCommand.classes[class_name](**params)
+        storage.save()
+        print(new_instance.id)
+        storage.save()
 
     def do_show(self, arg):
         """Prints the string representation of an instance
