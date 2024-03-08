@@ -33,30 +33,30 @@ section #search_button:hover {
     width: 25%;
     height: 100%;
     float: left;
-    text-align: center;
 }
 
 
 .filters .locations {
     border-right: solid 1px #DDDDDD;
-
 }
 
 .filters .amenities {
 
 }
 
-.locations h3, .amenities h3 {
-    color: green;
+.filters h3, .filters h4 {
     margin: 0;
     padding: 0;
+
+    margin-left: 50px;
+}
+
+.locations h3, .amenities h3 {
     weight: 600;
+    margin-top: 18px;
 }
 
 .locations h4, .amenities h4 {
-    color: red;
-    margin: 0;
-    padding: 0;
     font-size: 14px;
     weight: 400;
 }
